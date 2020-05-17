@@ -13,13 +13,42 @@
       </navigator>
     </swiper-item>
   </swiper>
+
+
+
+
   <view class="m-menu">
-    <navigator class="item" url="{{item.url}}" wx:for="{{channel}}" wx:key="{{item.id}}">
-      <image src="{{item.icon_url}}" background-size="cover"></image>
+    <navigator class="item" url="../category/category?id={{item.id}}" wx:for="{{floorGoods}}" wx:key="{{item.id}}">
+      <image src="{{item.IconUrl}}" background-size="cover"></image>
       <text>{{item.name}}</text>
     </navigator>
   </view>
+
+
+
+
+
+
   <view class="a-section a-brand">
+    <!-- 优惠券 -->
+    <view class="m-coupon">
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon1.jpg"  mode="aspectFit"></image>
+    </navigator>
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon2.jpg" mode="aspectFit"></image>
+    </navigator>
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon3.jpg" mode="aspectFit"></image>
+    </navigator>
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon4.jpg" mode="aspectFit"></image>
+    </navigator>
+    
+    
+    </view>
+     <!-- /优惠券 -->
+
     <view class="h">
       <navigator url="../brand/brand">
         <text class="txt">艾莉歌推荐</text>
@@ -109,7 +138,7 @@
     </view>
   </view>
   
-  <!--view class="good-grid" wx:for="{{floorGoods}}" wx:key="{{item.id}}">
+  <view class="good-grid" wx:for="{{floorGoods}}" wx:key="{{item.id}}">
     <view class="h">
       <view>
         <text>{{item.name}}</text>
@@ -117,6 +146,7 @@
     </view>
     <view class="b">
       <block wx:for="{{item.goodsList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="{{iitem.id}}">
+       
         <navigator url="../goods/goods?id={{iitem.id}}" class="item">
           <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
           <view class="name">{{iitem.name}}</view>
@@ -124,5 +154,5 @@
         </navigator>
       </block>
     </view>
-  </view-->
+  </view>
 </view>
