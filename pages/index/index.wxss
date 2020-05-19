@@ -35,12 +35,12 @@
 
 .banner {
   width: 750rpx;
-  height: 417rpx;
+  height: 500rpx;
 }
 
 .banner image {
   width: 100%;
-  height: 417rpx;
+  height: 500rpx;
 }
 
 .m-menu {
@@ -339,13 +339,13 @@
   width: 750rpx;
   height: auto;
   overflow: hidden;
-  padding: 0 20rpx;
+  padding: 0 15rpx;
 }
 
 .good-grid .b .item {
   display: block;
   float: left;
-  width: 345rpx;
+  width: 50%;
   margin-bottom: 30rpx;
   height: auto;
   overflow: hidden;
@@ -353,11 +353,11 @@
 }
 
 .good-grid .b .item:nth-child(2n + 1) {
-  margin-right: 20rpx;
+  padding-right: 15rpx;
 }
 
 .good-grid .item .img {
-  width: 345rpx;
+  width: 100%;
   height: 345rpx;
   background: #f8f8f8;
   margin-bottom: 10rpx;
@@ -381,6 +381,8 @@
   font-size: 30rpx;
   color: #b4282d;
 }
+/*banner图*/
+
 
 /*优惠券*/
 .m-coupon{
@@ -401,3 +403,92 @@ margin: 35rpx 36rpx 60rpx 36rpx
  width: 100%;
 height: 201rpx
 }
+
+/*爆款*/
+
+.hot-title {
+  /* margin-bottom: 50rpx; */
+}
+.hot-title image{
+  width: 353rpx;
+  height: 94rpx;
+}
+.hot-container{
+
+  height: 355rpx;
+  margin-bottom: 30rpx;
+}
+
+
+.hot-container .hot-nav{
+  width:50%;
+  float: left;
+  height: 355rpx;
+
+}
+.hot-container .wrap{
+  width: 345rpx;
+  margin:0 auto 30rpx auto;
+
+}
+
+.hot-container .hot-nav .img{
+  width: 346rpx;
+  height: 355rpx;
+}
+
+/*专题修改*/
+.a-section .topipc-container{
+  height: 200rpx;
+}
+.topic-title{
+  margin: 30rpx 0;
+}
+
+.topic-title image{
+  width: 300rpx;
+  height: 92rpx;
+}
+
+.a-topic .b{
+  height: 595rpx;
+}
+.a-topic .b .topic-banner:last-child{
+  margin:0;
+}
+.a-topic .b .topic-list{
+  height:595rpx ;
+} 
+.a-topic .b .topic-banner{
+  padding:0 15rpx;
+  width: 100%;
+  height: 595rpx;
+}
+
+.a-topic .b .topic-banner .img{
+  width:100%;
+}
+
+/*新品首发修改*/
+.a-new .news-list{
+  padding:0;
+  padding:0 15rpx
+}
+
+.a-new .news-list .item{
+  margin:0;
+  width: 50%;
+  margin-bottom: 30rpx;
+
+}
+
+.a-new .news-list .item:nth-child(2n + 1){
+  padding-right:15rpx;
+}
+
+.a-new .news-list .item .img{
+  width: 100%;
+}
+  
+
+

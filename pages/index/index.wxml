@@ -13,19 +13,49 @@
       </navigator>
     </swiper-item>
   </swiper>
+
+
+
+
   <view class="m-menu">
-    <navigator class="item" url="{{item.url}}" wx:for="{{channel}}" wx:key="{{item.id}}">
-      <image src="{{item.icon_url}}" background-size="cover"></image>
+    <navigator class="item" url="../category/category?id={{item.id}}" wx:for="{{floorGoods}}" wx:key="{{item.id}}">
+      <image src="{{item.IconUrl}}" background-size="cover"></image>
       <text>{{item.name}}</text>
     </navigator>
   </view>
+
+
+
+
+
+
   <view class="a-section a-brand">
+    <!-- 优惠券 -->
+    <view class="m-coupon">
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon1.jpg"  mode="aspectFit"></image>
+    </navigator>
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon2.jpg" mode="aspectFit"></image>
+    </navigator>
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon3.jpg" mode="aspectFit"></image>
+    </navigator>
+    <navigator class="coupon-item item">
+      <image src="../../static/images/coupon4.jpg" mode="aspectFit"></image>
+    </navigator>
+    
+    
+    </view>
+     <!-- /优惠券 -->
+
     <view class="h">
-      <navigator url="../brand/brand">
-        <text class="txt">艾莉歌推荐</text>
+      <navigator url="../brand/brand" class="hot-title">
+        <!-- <text class="txt">艾莉歌推荐</text> -->
+        <image src="../../static/images/title1.jpg" mode="aspectFit"></image>
       </navigator>
     </view>
-    <view class="b">
+    <!-- <view class="b">
       <view class="item item-1" wx:for="{{brand}}" wx:key="item.id">
         <navigator url="/pages/brandDetail/brandDetail?id={{item.id}}">
           <view class="wrap">
@@ -37,28 +67,48 @@
             </view>
           </view>
         </navigator>
+        
+      </view>
+    </view> -->
+
+<view class="b hot-container">
+      <view class="item item-1 hot-nav" wx:for="{{brand}}" wx:key="item.id">
+        <navigator url="/pages/brandDetail/brandDetail?id={{item.id}}">
+          <view class="wrap">
+            <image class="img" src="{{item.new_pic_url}}" mode="aspectFill"></image>
+            <!-- <view class="mt">
+              <text class="brand">{{item.name}}</text>
+              <text class="price">{{item.floor_price}}</text>
+              <text class="unit">元起</text>
+            </view> -->
+          </view>
+        </navigator>
+        
       </view>
     </view>
+
+
   </view>
 
   <view class="a-section a-topic" wx:if="topics.length > 0">
-      <view class="h">
+      <view class="h topipc-container">
         <view>
-          <navigator url="../topic/topic" open-type="switchTab">
-            <text class="txt">专题精选</text>
+          <navigator class="topic-title" url="../topic/topic" open-type="switchTab">
+            <!-- <text class="txt">专题精选</text> -->
+             <image src="../../static/images/title2.jpg" mode="aspectFit"></image>
           </navigator>
         </view>
       </view>
       <view class="b">
-        <scroll-view scroll-x="true" class="list">
-          <view class="item" wx:for="{{topics}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
+        <scroll-view scroll-x="true" class="list topic-list">
+          <view class="item topic-banner" wx:for="{{topics}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
             <navigator url="../topicDetail/topicDetail?id={{item.id}}">
               <image class="img" src="{{item.scene_pic_url}}" background-size="cover"></image>
-              <view class="np">
+              <!-- <view class="np">
                 <text class="name">{{item.title}}</text>
                 <text class="price">￥{{item.price_info}}元起</text>
               </view>
-              <text class="desc">{{item.subtitle}}</text>
+              <text class="desc">{{item.subtitle}}</text> -->
             </navigator>
           </view>
         </scroll-view>
@@ -73,17 +123,17 @@
         </navigator>
       </view>
     </view>
-    <view class="b">
+    <view class="b news-list">
       <view class="item" wx:for="{{newGoods}}" wx:for-index="index" wx:for-item="item" wx:key="{{item.id}}">
         <navigator url="../goods/goods?id={{item.id}}">
           <image class="img" src="{{item.list_pic_url}}" background-size="cover"></image>
-          <!-- <text class="name">{{item.name}}</text> -->
+          <text class="name">{{item.name}}</text>
           <text class="price">￥{{item.retail_price}}</text>
         </navigator>
       </view>
     </view>
   </view>
-  <view class="a-section a-popular" wx:if="{{hotGoods.length > 0}}">
+  <!-- <view class="a-section a-popular" wx:if="{{hotGoods.length > 0}}">
     <view class="h hot-h">
       <view>
         <navigator url="../hotGoods/hotGoods">
@@ -98,8 +148,8 @@
           <image class="img" src="{{item.list_pic_url}}" background-size="cover"></image>
           <view class="right">
             <view class="text">
-              <!-- <text class="name">{{item.name}}</text>
-              <text class="desc">{{item.goods_brief}}</text> -->
+              <text class="name">{{item.name}}</text>
+              <text class="desc">{{item.goods_brief}}</text>
               <text class="price">￥{{item.retail_price}}</text>
             </view>
           </view>
@@ -107,9 +157,9 @@
       </view>
 
     </view>
-  </view>
+  </view> -->
   
-  <!--view class="good-grid" wx:for="{{floorGoods}}" wx:key="{{item.id}}">
+  <view class="good-grid" wx:for="{{floorGoods}}" wx:key="{{item.id}}">
     <view class="h">
       <view>
         <text>{{item.name}}</text>
@@ -117,6 +167,7 @@
     </view>
     <view class="b">
       <block wx:for="{{item.goodsList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="{{iitem.id}}">
+       
         <navigator url="../goods/goods?id={{iitem.id}}" class="item">
           <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
           <view class="name">{{iitem.name}}</view>
@@ -124,5 +175,5 @@
         </navigator>
       </block>
     </view>
-  </view-->
+  </view>
 </view>
