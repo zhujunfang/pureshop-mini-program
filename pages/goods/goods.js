@@ -78,17 +78,19 @@ Page({
     //TODO 性能优化，可在wx:for中添加index，可以直接获取点击的属性名和属性值，不用循环
     let _specificationList = this.data.specificationList;
     for (let i = 0; i < _specificationList.length; i++) {
-      if (_specificationList[i].specification_id == specNameId) {
-        for (let j = 0; j < _specificationList[i].valueList.length; j++) {
-          if (_specificationList[i].valueList[j].id == specValueId) {
+        _specificationList[i].Specification_id == specNameId ? 'true' : 'false'
+      ))
+      if (_specificationList[i].Specification_id == specNameId) {
+        for (let j = 0; j < _specificationList[i].List.length; j++) {
+          if (_specificationList[i].List[j].id == specValueId) {
             //如果已经选中，则反选
-            if (_specificationList[i].valueList[j].checked) {
-              _specificationList[i].valueList[j].checked = false;
+            if (_specificationList[i].List[j].checked) {
+              _specificationList[i].List[j].checked = false;
             } else {
-              _specificationList[i].valueList[j].checked = true;
+              _specificationList[i].List[j].checked = true;
             }
           } else {
-            _specificationList[i].valueList[j].checked = false;
+            _specificationList[i].List[j].checked = false;
           }
         }
       }
@@ -108,14 +110,14 @@ Page({
     let _specificationList = this.data.specificationList;
     for (let i = 0; i < _specificationList.length; i++) {
       let _checkedObj = {
-        nameId: _specificationList[i].specification_id,
+        nameId: _specificationList[i].Specification_id,
         valueId: 0,
         valueText: ''
       };
-      for (let j = 0; j < _specificationList[i].valueList.length; j++) {
-        if (_specificationList[i].valueList[j].checked) {
-          _checkedObj.valueId = _specificationList[i].valueList[j].id;
-          _checkedObj.valueText = _specificationList[i].valueList[j].value;
+      for (let j = 0; j < _specificationList[i].List.length; j++) {
+        if (_specificationList[i].List[j].checked) {
+          _checkedObj.valueId = _specificationList[i].List[j].id;
+          _checkedObj.valueText = _specificationList[i].List[j].value;
         }
       }
       checkedValues.push(_checkedObj);
