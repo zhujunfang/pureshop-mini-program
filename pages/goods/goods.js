@@ -78,8 +78,6 @@ Page({
     //TODO 性能优化，可在wx:for中添加index，可以直接获取点击的属性名和属性值，不用循环
     let _specificationList = this.data.specificationList;
     for (let i = 0; i < _specificationList.length; i++) {
-        _specificationList[i].Specification_id == specNameId ? 'true' : 'false'
-      ))
       if (_specificationList[i].Specification_id == specNameId) {
         for (let j = 0; j < _specificationList[i].List.length; j++) {
           if (_specificationList[i].List[j].id == specValueId) {
