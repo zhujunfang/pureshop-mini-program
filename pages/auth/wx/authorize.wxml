@@ -1,0 +1,13 @@
+<view class="flex-column a-center j-center hui" style="margin-top:200rpx;">
+    <image class="loginPng" src="/static/images/ic_menu_me_pressed.png"></image>
+    <text class="rpx26" style="margin-top:80rpx;">{{hasAuthorize ? '已授权' :'请授权使用您的用户信息'}}</text>
+    <button class="main-bg" style="width:690rpx;margin-top:80rpx;" bindgetuserinfo="onWechatLogin" open-type="getUserInfo" wx:if="{{!hasAuthorize}}">
+        立即授权
+    </button>
+    <!-- <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onWechatLogin">
+                手机号登录
+    </button> -->
+    <navigator open-type="reLaunch" url="../index/index" class=" white" style="width:690rpx;margin-top:80rpx;padding:20rpx 0;text-align:center;background:#32CD32;" wx:if="{{hasAuthorize}}">
+        立即前往首页
+    </navigator>
+</view>

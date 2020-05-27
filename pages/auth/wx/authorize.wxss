@@ -1,0 +1,19 @@
+/* pages/auth/wx/authorize.wxss */
+.main-bg {
+    background: #b4282d;
+    color: #fff;
+  }
+  
+  .flex-column {
+    color: #b7b7b7;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-flex;
+    flex-direction: column;
+  }
+  
+  .loginPng {
+    width: 160rpx;
+    height: 160rpx;
+  }
+  
