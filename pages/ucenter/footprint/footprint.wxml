@@ -3,7 +3,7 @@
     <view class="day-item" wx:for="{{footprintList}}" wx:key="{{index}}">
       <view class="day-hd">{{item[0].add_time}}</view>
       <view class="day-list">
-        <view class="item" data-footprint="{{iitem}}" bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap="deleteItem" wx:for="{{item}}"  wx:for-item="iitem" wx:key="{{iitem.id}}">
+        <view class="item" data-footprint="{{iitem}}" bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap="deleteItem" wx:for="{{item}}" wx:for-item="iitem" wx:key="id">
           <image class="img" src="{{iitem.list_pic_url}}"></image>
           <view class="info">
             <view class="name">{{iitem.name}}</view>

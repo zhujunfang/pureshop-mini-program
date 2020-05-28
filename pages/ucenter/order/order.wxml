@@ -1,11 +1,11 @@
 <view class="container">
     <view class="orders">
-        <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="order" wx:for="{{orderList}}" wx:key="{{item.id}}">
+        <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="order" wx:for="{{orderList}}" wx:key="id">
             <view class="h">
                 <view class="l">订单编号：{{item.order_sn}}</view>
                 <view class="r">{{item.order_status_text}}</view>
             </view>
-            <view class="goods" wx:for="{{item.goodsList}}" wx:key="{{gitem.id}}" wx:for-item="gitem">
+            <view class="goods" wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">
                 <view class="img">
                     <image src="{{gitem.list_pic_url}}"></image>
                 </view>
