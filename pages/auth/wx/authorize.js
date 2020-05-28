@@ -1,5 +1,3 @@
-// var util = require('../../utils/util.js');
-// var api = require('../../config/api.js');
 import * as util from '../../../utils/util'
 import * as api from '../../../config/api'
 
@@ -35,12 +33,13 @@ Page({
     },
     onWechatLogin(e) {
         util.getTokenByWx().then(data => {
+            console.log("authorize success")
             this.hasAuthorize = true
             wx.switchTab({
                 url: '/pages/index/index'
             });
         }).catch(err => {
-
+            console.log("authorize error")
         })
     },
 })

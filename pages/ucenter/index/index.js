@@ -1,40 +1,55 @@
-const util = require('../../../utils/util.js');
-const api = require('../../../config/api.js');
-const user = require('../../../services/user.js');
+// const user = require('../../../services/user.js');
+import * as util from '../../../utils/util'
+import * as api from '../../../config/api'
+
 const app = getApp();
 
 Page({
   data: {
     userInfo: {},
+    hasAuthorize: false,
     showLoginDialog: false
   },
-  onLoad: function (options) {
+  onLoad(options) {
     // 页面初始化 options为页面跳转所带来的参数
   },
-  onReady: function () {
+  onReady() {
 
   },
-  onShow: function () {
-    this.setData({
-      userInfo: app.globalData.userInfo,
-    });
+  onShow() {
+    console.log(`onshow app data`, app)
+    const newData = {}
+    // check hasAuthorize
+    if (app.globalData.token) {
+      newData.hasAuthorize = true
+      newData.showLoginDialog = false
+    } else {
+      newData.hasAuthorize = false
+      newData.showLoginDialog = true
+    }
+
+    if (app.globalData.userInfo) {
+      console.log(`有全局userInfo，赋值到此页面数据`, app.globalData.userInfo)
+      newData.userInfo = app.globalData.userInfo
+      console.log(`this.userInfo`, this.userInfo)
+    }
+
+    this.setData(newData)
   },
-  onHide: function () {
+  onHide() {
     // 页面隐藏
 
   },
-  onUnload: function () {
+  onUnload() {
     // 页面关闭
   },
 
-  onUserInfoClick: function () {
+  onUserInfoClick() {
     try {
       const tokenStr = wx.getStorageSync('token')
       if (tokenStr === '') {
         this.showLoginDialog();
       }
-
-      // todo 判断token是否有效
     } catch (e) {
       this.showLoginDialog();
     }
@@ -57,62 +72,51 @@ Page({
   },
 
   onWechatLogin(e) {
-    if (e.detail.errMsg !== 'getUserInfo:ok') {
-      if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
-        return false
-      }
-      wx.showToast({
-        title: '微信登录失败',
-      })
-      return false
-    }
-    util.login().then((res) => {
-      return util.request(api.AuthLoginByWeixin, {
-        code: res,
-        userInfo: e.detail
-      }, 'POST');
-    }).then((res) => {
-      console.log(res)
-      if (res.errno !== 0) {
-        wx.showToast({
-          title: '微信登录失败',
-        })
-        return false;
-      }
-      // 设置用户信息
+    util.getTokenByWx().then(data => {
+      console.log("authorize success")
       this.setData({
-        userInfo: res.data.userInfo,
-        showLoginDialog: false
+        hasAuthorize: true,
+        showLoginDialog: false,
+      })
+
+      wx.switchTab({
+        url: '/pages/index/index'
       });
-      app.globalData.userInfo = res.data.userInfo;
-      app.globalData.token = res.data.token;
-      wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo));
-      wx.setStorageSync('token', res.data.token);
-    }).catch((err) => {
-      console.log(err)
+    }).catch(err => {
+      console.log("authorize error")
     })
   },
 
-  onOrderInfoClick: function (event) {
+  onOrderInfoClick(event) {
     wx.navigateTo({
       url: '/pages/ucenter/order/order',
     })
   },
 
-  onSectionItemClick: function (event) {
+  onSectionItemClick(event) {
 
   },
 
   // TODO 移到个人信息页面
-  exitLogin: function () {
+  exitLogin() {
     wx.showModal({
       title: '',
       confirmColor: '#b4282d',
       content: '退出登录？',
-      success: function (res) {
+      success: (res) => {
         if (res.confirm) {
           wx.removeStorageSync('token');
           wx.removeStorageSync('userInfo');
+
+          this.setData({
+            userInfo: {},
+            token: "",
+            hasAuthorize: false,
+            showLoginDialog: false,
+          })
+          app.globalData.token = ''
+          app.globalData.userInfo = null
+
           wx.switchTab({
             url: '/pages/index/index'
           });
