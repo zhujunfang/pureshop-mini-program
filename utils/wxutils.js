@@ -78,10 +78,23 @@ function showErrorToast(msg) {
     })
 }
 
+function updateAuthLocalData() {
+    // todo
+}
+
+function removeAuthLocalData() {
+    wx.removeStorageSync('token')
+    wx.removeStorageSync('userInfo')
+    app.globalData.token = ''
+    app.globalData.userInfo = null
+}
+
 export {
     login,
     getUserInfo,
     checkSession,
     redirect,
-    showErrorToast
+    showErrorToast,
+    updateAuthLocalData,
+    removeAuthLocalData
 }

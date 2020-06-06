@@ -1,5 +1,6 @@
 // const user = require('../../../services/user.js');
 import * as util from '../../../utils/util'
+import * as wxutils from '../../../utils/wxutils'
 import * as api from '../../../config/api'
 
 const app = getApp();
@@ -73,7 +74,7 @@ Page({
 
   onWechatLogin(e) {
     util.getTokenByWx().then(data => {
-      console.log("authorize success")
+      console.log(`authorize success; ${data}`)
       this.setData({
         hasAuthorize: true,
         showLoginDialog: false,
@@ -97,7 +98,6 @@ Page({
 
   },
 
-  // TODO 移到个人信息页面
   exitLogin() {
     wx.showModal({
       title: '',
@@ -105,24 +105,21 @@ Page({
       content: '退出登录？',
       success: (res) => {
         if (res.confirm) {
-          wx.removeStorageSync('token');
-          wx.removeStorageSync('userInfo');
-
           this.setData({
             userInfo: {},
             token: "",
             hasAuthorize: false,
             showLoginDialog: false,
           })
-          app.globalData.token = ''
-          app.globalData.userInfo = null
+
+          //移除全局数据
+          wxutils.removeAuthLocalData()
 
           wx.switchTab({
             url: '/pages/index/index'
           });
         }
       }
-    })
-
+    }) // showModal end.
   }
 })
