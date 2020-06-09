@@ -104,25 +104,29 @@ Page({
 
   //获取选中的规格信息
   getCheckedSpecValue: function () {
-    let checkedValues = [];
-    let _specificationList = this.data.specificationList;
-    for (let i = 0; i < _specificationList.length; i++) {
-      let _checkedObj = {
-        nameId: _specificationList[i].Specification_id,
+    const checkedValues = [];
+
+    this.data.specificationList.forEach(spec => {
+      const _checkedObj = {
+        nameId: spec.Specification_id,
         valueId: 0,
         valueText: ''
       };
-      for (let j = 0; j < _specificationList[i].List.length; j++) {
-        if (_specificationList[i].List[j].checked) {
-          _checkedObj.valueId = _specificationList[i].List[j].id;
-          _checkedObj.valueText = _specificationList[i].List[j].value;
+
+      spec.List.some(item => {
+        if (item.checked) {
+          _checkedObj.valueId = item.id;
+          _checkedObj.valueText = item.value;
+          return true
         }
-      }
+      })
+
       checkedValues.push(_checkedObj);
-    }
+    })
+
+    console.log(`已选规格: ${JSON.stringify(checkedValues)}`)
 
     return checkedValues;
-
   },
   //根据已选的值，计算其它值的状态
   setSpecValueStatus: function () {

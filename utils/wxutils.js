@@ -1,3 +1,6 @@
+// application instance
+const app = getApp()
+
 /**
  * 调用微信登录
  */
