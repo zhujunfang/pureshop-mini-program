@@ -45,27 +45,9 @@ Page({
   },
   payOrder() {
     let that = this;
-    util.request(api.PayPrepayId, {
-      orderId: that.data.orderId || 15
-    }).then(function (res) {
-      if (res.errno === 0) {
-        const payParam = res.data;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.nonceStr,
-          'package': payParam.package,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function (res) {
-            console.log(res)
-          },
-          'fail': function (res) {
-            console.log(res)
-          }
-        });
-      }
-    });
-
+    util.prepay({
+      id: Number(that.data.orderId)
+    })
   },
   onReady: function () {
     // 页面渲染完成

@@ -29,33 +29,14 @@ Page({
     // 页面关闭
 
   },
-  //向服务请求支付参数
+
   requestPayParam() {
-    let that = this;
-    util.request(api.PayPrepayId, { orderId: that.data.orderId, payType: 1 }).then(function (res) {
-      if (res.errno === 0) {
-        let payParam = res.data;
-        wx.requestPayment({
-          'timeStamp': payParam.timeStamp,
-          'nonceStr': payParam.timeStamp,
-          'package': payParam.nonceStr,
-          'signType': payParam.signType,
-          'paySign': payParam.paySign,
-          'success': function (res) {
-            wx.redirectTo({
-              url: '/pages/payResult/payResult?status=true',
-            })
-          },
-          'fail': function (res) {
-            wx.redirectTo({
-              url: '/pages/payResult/payResult?status=false',
-            })
-          }
-        })
-      }
-    });
+
   },
+
   startPay() {
-    this.requestPayParam();
+    //向服务请求支付参数
+    console.log(`data ${JSON.stringify(this.data)}`)
+    util.prepay({ id: Number(this.data.orderId), payType: 1 })
   }
 })

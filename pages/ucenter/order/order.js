@@ -2,15 +2,15 @@ var util = require('../../../utils/util.js');
 var api = require('../../../config/api.js');
 
 Page({
-  data:{
+  data: {
     orderList: []
   },
-  onLoad:function(options){
+  onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
 
     this.getOrderList();
   },
-  getOrderList(){
+  getOrderList() {
     let that = this;
     util.request(api.OrderList).then(function (res) {
       if (res.errno === 0) {
@@ -21,21 +21,23 @@ Page({
       }
     });
   },
-  payOrder(){
+  payOrder(event) {
+    // 带参数:订单id
+    const orderId = event.target.dataset.orderId
     wx.redirectTo({
-      url: '/pages/pay/pay',
+      url: `/pages/pay/pay?orderId=${orderId}`,
     })
   },
-  onReady:function(){
+  onReady: function () {
     // 页面渲染完成
   },
-  onShow:function(){
+  onShow: function () {
     // 页面显示
   },
-  onHide:function(){
+  onHide: function () {
     // 页面隐藏
   },
-  onUnload:function(){
+  onUnload: function () {
     // 页面关闭
   }
 })

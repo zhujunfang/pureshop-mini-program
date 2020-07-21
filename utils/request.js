@@ -20,7 +20,7 @@ class Request {
     }
     // 执行 wefetch 实例
     request(options) {
-        return this.instance(this.merge(options));
+        return this.instance(options);
     }
 
     // 对 fetch response.ok 进行增强，返回数据里的errno不等于0时，为业务异常 
@@ -86,10 +86,9 @@ function request(url, data = {}, method = "GET") {
             const res = response.data
 
             if (res.errno !== 401) {
-                reject("request biz error")
-            }
-
-            if (awaitAuth === false) {
+                // todo 跳转到授权界面
+                reject(res)
+            } else if (awaitAuth === false) {
                 switchawaitAuth()
                 return getTokenByWx().then(res => {
                     return request(url, data, method)
@@ -116,8 +115,15 @@ function request(url, data = {}, method = "GET") {
             }
         })
     }).then(response => {
+        console.log(`return response ${response}`)
         const data = response.data
         return data
+    }).catch(info => {
+        console.log(`handle err: ${JSON.stringify(info)}`)
+        // return info
+        return new Promise((resolve, reject) => {
+            resolve(info)
+        })
     })
 }
 
@@ -161,4 +167,56 @@ function getTokenByWx() {
         })
 }
 
-export { request, getTokenByWx }
+function prepay(orderData) {
+    const url = api.PayPrepayId
+    return request(url, orderData, "POST").then(res => {
+        return new Promise((resolve, reject) => {
+            if (res.errno !== 0) {
+                console.log(`prepay fail ${JSON.stringify(res)}`)
+                reject(res)
+                return
+            }
+
+            // 发起支付参数
+            // https://developers.weixin.qq.com/miniprogram/dev/api/open-api/payment/wx.requestPayment.html
+            const payParam = {
+                //必填
+                timeStamp: `${res.data.timestamp}`,
+                nonceStr: res.data.nonce_str,
+                package: `prepay_id=${res.data.prepay_id}`,
+                paySign: res.data.sign,
+
+                //选填
+                signType: "MD5",
+
+                // callbacks
+                success: null,
+                fail: null,
+            }
+
+            console.log(`request payment data: ${JSON.stringify(payParam)}`)
+
+            payParam.success = function (res) {
+                console.log("pay success")
+                resolve(res)
+            }
+
+            payParam.fail = function (res) {
+                console.log(`pay fail: ${JSON.stringify(res)}`)
+                reject(res)
+            }
+
+            wx.requestPayment(payParam)
+        })
+    }).then(res => {
+        wx.redirectTo({
+            url: '/pages/payResult/payResult?status=true',
+        })
+    }).catch(res => {
+        wx.redirectTo({
+            url: '/pages/payResult/payResult?status=false',
+        })
+    })
+}
+
+export { request, getTokenByWx, prepay }

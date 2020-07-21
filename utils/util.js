@@ -1,5 +1,5 @@
 import api from '../config/api'
-import { request, getTokenByWx } from './request'
+import { request, getTokenByWx, prepay } from './request'
 // import { queue } from 'async'
 import { login, checkSession, redirect, showErrorToast, getUserInfo } from './wxutils'
 
@@ -34,6 +34,7 @@ export {
   formatTime,
   request,
   getTokenByWx,
+  prepay,
   get,
   post,
   redirect,

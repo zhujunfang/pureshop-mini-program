@@ -98,18 +98,22 @@ Page({
       return false;
     }
     util.request(api.OrderSubmit, { addressId: this.data.addressId, couponId: this.data.couponId }, 'POST').then(res => {
+      console.log(`submit result ${JSON.stringify(res)}`)
       if (res.errno === 0) {
         const orderId = res.data.id;
         pay.payOrder(parseInt(orderId)).then(res => {
+          console.log(`payOrder: success; res: ${JSON.stringify(res)} `)
           wx.redirectTo({
             url: '/pages/payResult/payResult?status=1&orderId=' + orderId
           });
         }).catch(res => {
+          console.log(`payOrder: fail; res: ${JSON.stringify(res)} `)
           wx.redirectTo({
             url: '/pages/payResult/payResult?status=0&orderId=' + orderId
           });
         });
       } else {
+        console.log("下单失败")
         util.showErrorToast('下单失败');
       }
     });
